@@ -15,6 +15,11 @@ function Transfer({ signature, address, setBalance }) {
     console.log('signature: ', signature);
     console.log('address: ', address);
 
+    // fields cannot be empty
+    if (!sendAmount || !signature || !recipient) {
+      return;
+    }
+
     try {
       const {
         data: { balance },
