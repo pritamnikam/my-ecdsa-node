@@ -1,7 +1,7 @@
 import { useState } from "react";
 import server from "./server";
 
-function Transfer({ address, setBalance }) {
+function Transfer({ signature, address, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
@@ -10,6 +10,11 @@ function Transfer({ address, setBalance }) {
   async function transfer(evt) {
     evt.preventDefault();
 
+    console.log('sendAmount: ', sendAmount);
+    console.log('recipient: ', recipient);
+    console.log('signature: ', signature);
+    console.log('address: ', address);
+
     try {
       const {
         data: { balance },
@@ -17,9 +22,11 @@ function Transfer({ address, setBalance }) {
         sender: address,
         amount: parseInt(sendAmount),
         recipient,
+        signature,
       });
       setBalance(balance);
     } catch (ex) {
+      console.log(ex);
       alert(ex.response.data.message);
     }
   }
